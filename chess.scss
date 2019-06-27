@@ -1,0 +1,65 @@
+$width:600px;
+$radius:15px;
+
+@mixin positonMiddle{
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+.box{
+  width: $width;
+  height:$width;
+  border: 1px solid black;
+  @include positonMiddle;
+  span{
+    position: absolute;
+    height: 2px;
+    width: $width - $radius * 2;
+    background: black;
+    transform: translate(-2000px,0);
+    left: $radius;
+    animation: leftMove 1s 1 ease forwards;
+  }
+  i{
+    position: absolute;
+    width: 2px;
+    height: $width - $radius * 2;
+    background: black;
+    transform: translate(0,-2000px);
+    top: $radius;
+    animation: topMove 1s 1 ease forwards;
+  }
+}
+@for $i from 1 through 20 {
+  .box span:nth-of-type(#{$i}) {
+    top: (2 * $i - 1) * $radius;
+    animation-delay:$i * 100ms ;
+  }
+  .box i:nth-of-type(#{$i}) {
+    left: (2 * $i - 1) * $radius;
+    animation-delay:$i * 100ms ;
+  }
+}
+
+@keyframes leftMove {
+  from{
+   transform:translate(-2000px,0);
+  }
+  to{
+    transform:translate(0,0);
+  }
+}
+@keyframes topMove {
+  from{
+    transform:translate(0,-2000px);
+  }
+  to{
+    transform:translate(0,0);
+  }
+
+}
+
+
